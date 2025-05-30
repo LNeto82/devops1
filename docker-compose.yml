@@ -1,0 +1,47 @@
+services:
+  products:
+    build: ./products
+    ports:
+      - "4001:4001"
+    networks:
+      - ecommerce-net
+
+  orders:
+    build: ./orders
+    ports:
+      - "4002:4002"
+    depends_on:
+      - products
+      - redis
+    networks:
+      - ecommerce-net
+
+  payments:
+    build: ./payments
+    ports:
+      - "4006:4003"
+    depends_on:
+      - orders
+    networks:
+      - ecommerce-net
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ecommerce
+    ports:
+      - "3309:3306"
+    networks:
+      - ecommerce-net
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - ecommerce-net
+
+networks:
+  ecommerce-net:
