@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  products:
+    build: ./products
+    ports:
+      - "3001:3001"
+    networks:
+      - ecommerce-net
+
+  orders:
+    build: ./orders
+    ports:
+      - "3002:3002"
+    depends_on:
+      - db
+      - redis
+      - products
+    networks:
+      - ecommerce-net
+
+  payments:
+    build: ./payments
+    ports:
+      - "3003:3003"
+    depends_on:
+      - orders
+    networks:
+      - ecommerce-net
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: ecommerce
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3309:3306"
+    networks:
+      - ecommerce-net
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - ecommerce-net
+
+networks:
+  ecommerce-net:
+    driver: bridge

@@ -1,0 +1,50 @@
+Docker é um arquivo de texto que contém uma sequência de instruções para construção de 
+uma imagem. Uma imagem é algo espelhado do que está rodando. O Docker tem várias funções
+para melhorar o ambiente de desenvolvimento, como se fosse uma cultura ágil, fácil de se
+adaptar. Muito usado por ser eficiente, confiável e rápido. Dentro de containers, fica
+ mais fácil o manuseio de todo o código.
+
+Os comandos usados para formar um Dockerfile ficam na raiz da pasta do seu projeto.
+
+Comandos comuns em um Dockerfile:
+
+FROM: Define a imagem base para o contêiner. (node, python e php)
+
+RUN: instala as dependencias que seram usadas.
+
+COPY / ADD: Copia arquivos  e dependencias para o container.
+
+WORKDIR: Define o diretório de trabalho dentro do container.
+
+CMD: Define o comando a ser executado quando o contêiner iniciar.
+
+Docker Compose é um código executado para interligar containers do mesmo projeto. Tem a função de definir, executar e gerenciar. É fácil de configurar e escalar os projetos.
+
+Explicação do arquivo docker-compose.yml:
+
+Products, orders e payments:
+
+Services: containers que seram criados.
+
+Networks: define a rede para containers se comunicarem.
+
+Build products: caminho da api.
+
+ports: 3001:3001 mapeia a porta para acesso aos produtos.
+
+networks: conecta o container junto com outros na mesma rede.
+
+envoirement: variaveis de ambinete.
+
+volumes: armazena dados do banmco fora do container.
+
+depends_on: que inicia somente depois de mysql e redis estarem
+prontos.
+
+
+Para o MySQL é usada a imagem como nos outros para construir a imagem. restart para 
+iniciar o Docker automaticamente. environment define variáveis de ambiente.
+
+Redis: imagem, porta e rede definidas no yml.
+
+Rede: define o nome da rede em que todos os serviços estaram rodando.
